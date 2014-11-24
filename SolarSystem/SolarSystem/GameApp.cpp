@@ -42,10 +42,13 @@ void GameApp::SetupScene()
 	earth->shader = shader;
 
 	sceneGraph->root->AddModel(earth);
-	sceneGraph->root->SetTransform(glm::vec3(-1.0f, -1.0, 0.0f), glm::rotate(glm::mat4(1.0f), 30.0f, glm::vec3(0.0f, 0.0f, 1.0f)), glm::vec3(3.0f));
+	sceneGraph->root->SetTransform(glm::vec3(-2.0f, 0.0, 0.0f), 
+		//glm::rotate(glm::mat4(1.0f), -0.0f, glm::vec3(0.0f, 1.0f, 0.0f)), 
+		glm::mat4(1.0f),
+		glm::vec3(1.0f));
 
 	moon = new Model("Art/Moon/sphere.obj",shader);
-	SceneNode* moonNode = new SceneNode(glm::vec3(0.0f, 0.0f, 0.0f), glm::mat4(1.0f), glm::vec3(1.0f));
+	SceneNode* moonNode = new SceneNode(glm::vec3(-1.0f, 0.0f, 0.0f), glm::mat4(1.0f), glm::vec3(1.0f));
 	moonNode->AddModel(moon);
 	sceneGraph->root->AddChild(moonNode);
 	

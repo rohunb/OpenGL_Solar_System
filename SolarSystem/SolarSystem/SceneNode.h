@@ -16,12 +16,14 @@ private:
 public:
 	glm::vec3 position, scaleVec;
 	glm::mat4 rotation;
+	float angle;
 
 	SceneNode();
 	SceneNode(const glm::vec3& position, const glm::mat4& rotation, const glm::vec3& scale);
 	~SceneNode();
 
 	void SetTransform(const glm::vec3& position, const glm::mat4& rotation, const glm::vec3& scale);
+	glm::mat4 GetTransformMatrix() const;
 	void AddChild(SceneNode* node);
 	void RemoveChild(SceneNode* node);
 	void AddModel(Model* model);
