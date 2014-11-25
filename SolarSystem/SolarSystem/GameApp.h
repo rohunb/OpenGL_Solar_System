@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Light.h"
 #include "SolarSystem.h"
+#include "LineRenderer.h"
 
 class GameApp
 {
@@ -12,6 +13,7 @@ private:
 	const float dt = 0.16f;
 	const int windowHeight = 1024;
 	const int windowWidth = 1024;
+	bool paused;
 
 	//Engine components
 	Renderer* renderer;
@@ -22,6 +24,7 @@ private:
 
 	Camera* camera;
 	Light light;
+	std::vector<LineRenderer> orbitLines;
 
 	//game values
 	float cameraMoveSpeed;
