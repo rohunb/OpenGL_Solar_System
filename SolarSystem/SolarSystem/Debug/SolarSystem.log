@@ -1,13 +1,12 @@
-﻿Build started 11/25/2014 12:55:51 AM.
+﻿Build started 11/25/2014 1:10:14 AM.
      1>Project "E:\GitHub\OpenGL_Solar_System\SolarSystem\SolarSystem\SolarSystem.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\OpenGL\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameApp.cpp
-         GameApp.cpp
-         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-         GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\OpenGL\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LineRenderer.cpp
+         LineRenderer.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\GitHub\OpenGL_Solar_System\SolarSystem\Debug\SolarSystem.exe" /INCREMENTAL /NOLOGO /LIBPATH:Libraries\Assimp\lib /LIBPATH:Libraries\OpenGL\lib /LIBPATH:Libraries\soil\lib SOIL.lib assimpd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\GitHub\OpenGL_Solar_System\SolarSystem\Debug\SolarSystem.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\GitHub\OpenGL_Solar_System\SolarSystem\Debug\SolarSystem.lib" /MACHINE:X86 Debug\GameApp.obj
          Debug\Input.obj
+         Debug\LineRenderer.obj
          Debug\Main.obj
          Debug\Mesh.obj
          Debug\Model.obj
@@ -73,4 +72,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.10
+Time Elapsed 00:00:00.37

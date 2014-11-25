@@ -45,6 +45,9 @@
     <ClCompile Include="SolarSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LineRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -77,6 +80,9 @@
     <ClInclude Include="SolarSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LineRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="unlit_textured_Shader.frag">
@@ -89,6 +95,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="lit_textured_Shader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="line_renderer_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="line_renderer_shader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
