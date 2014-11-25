@@ -24,7 +24,7 @@ SceneGraph::~SceneGraph()
 
 void SceneGraph::RenderSceneGraph(const Renderer* renderer, const Camera* camera) const
 {
-	root->RenderSceneNode(renderer, camera);
+	root->RenderSceneNode(renderer, camera, light);
 }
 
 void SceneGraph::UpdateSceneGraph(float dt)

@@ -3,6 +3,8 @@
 #include "SceneGraph.h"
 #include "Model.h"
 #include "Camera.h"
+#include "Input.h"
+#include "Light.h"
 
 class GameApp
 {
@@ -17,6 +19,10 @@ private:
 	Camera* camera;
 	Model* earth;
 	Model* moon;
+	Light light;
+
+	//game values
+	float cameraMoveSpeed;
 
 public:
 	GameApp();
@@ -30,6 +36,8 @@ private:
 	void InitializeGameData();
 	void SetupScene();
 	void ProcessInput();
+	static void Keyboard(unsigned char key, int x, int y);
+	static void KeyboardUp(unsigned char key, int x, int y);
 	
 
 	

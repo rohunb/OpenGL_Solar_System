@@ -17,6 +17,8 @@ private:
 
 public:
 	Shader* shader;
+	glm::vec3 specular;
+	float shininess;
 
 	Model();
 	~Model();

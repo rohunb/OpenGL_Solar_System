@@ -68,6 +68,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -79,6 +80,8 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameApp.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Renderer.h" />
@@ -87,6 +90,8 @@
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lit_textured_Shader.frag" />
+    <None Include="lit_textured_Shader.vert" />
     <None Include="unlit_textured_Shader.frag" />
     <None Include="unlit_textured_Shader.vert" />
   </ItemGroup>

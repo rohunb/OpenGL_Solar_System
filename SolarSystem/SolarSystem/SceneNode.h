@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "Renderer.h"
 #include "Camera.h"
+#include "Light.h"
 
 class SceneNode
 {
@@ -28,7 +29,7 @@ public:
 	void RemoveChild(SceneNode* node);
 	void AddModel(Model* model);
 	void RemoveModel(Model* model);
-	void RenderSceneNode(const Renderer* renderer, const Camera* camera) const;
+	void RenderSceneNode(const Renderer* renderer, const Camera* camera, const Light& light) const;
 	void UpdateSceneNode(float dt);
 
 

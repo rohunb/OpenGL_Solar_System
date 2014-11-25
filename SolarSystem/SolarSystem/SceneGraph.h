@@ -1,12 +1,13 @@
 #pragma once
 #include "SceneNode.h"
 #include "Camera.h"
-
+#include "Light.h"
 class SceneGraph
 {
 	
 public:
 	SceneNode* root;
+	Light light;
 
 	SceneGraph();
 	SceneGraph(SceneNode* root);

@@ -62,9 +62,13 @@ public:
 
 	~Camera(){}
 
+	inline glm::vec3 Position() const
+	{
+		return position;
+	}
 	inline glm::mat4 View() const
 	{
-		return viewMatrix;
+		return glm::lookAt(position, position + forward, worldUp);
 	}
 	inline glm::mat4 Projection() const
 	{
@@ -85,12 +89,12 @@ public:
 	}
 
 private:
+
 	void Recalculate()
 	{
 		forward = glm::vec3(orientation * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));
 		right = glm::normalize(glm::cross(forward, worldUp));
 		up = glm::normalize(glm::cross(forward, right));
-		viewMatrix = glm::lookAt(position, position + forward, worldUp);
 	}
 
 

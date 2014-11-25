@@ -64,15 +64,13 @@ void SceneNode::RemoveModel(Model* model)
 	//model->sceneNode = NULL;
 }
 
-void SceneNode::RenderSceneNode(const Renderer* renderer, const Camera* camera) const
+void SceneNode::RenderSceneNode(const Renderer* renderer, const Camera* camera, const Light& light) const
 {
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::scale(modelMatrix, scaleVec);
 	modelMatrix = glm::translate(modelMatrix, position);
 	modelMatrix = modelMatrix*rotation;
 
-	//	modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-	//glm::mat4 modelMatrix = GetTransformMatrix();
 	if (parent)
 	{
 		//modelMatrix = parent->GetTransformMatrix() * modelMatrix;
@@ -82,9 +80,26 @@ void SceneNode::RenderSceneNode(const Renderer* renderer, const Camera* camera) 
 	for (Model* model : models)
 	{
 		model->shader->Use();
+
+		GLint matSpecLoc = glGetUniformLocation(model->shader->Program(), "uMaterial.specular");
+		glUniform3f(matSpecLoc, model->specular.x, model->specular.y, model->specular.z);
+		GLint matShinLoc = glGetUniformLocation(model->shader->Program(), "uMaterial.shininess");
+		glUniform1f(matShinLoc, model->shininess);
+
+		/*GLint lightPosLoc = glGetUniformLocation(model->shader->Program(), "uLight.position");
+		glUniform3f(lightPosLoc, light.position.x, light.position.y, light.position.z);
+		GLint lightAmbLoc = glGetUniformLocation(model->shader->Program(), "uLight.ambient");
+		glUniform3f(lightAmbLoc, light.ambient.x, light.ambient.y, light.ambient.z);
+		GLint lightDiffLoc = glGetUniformLocation(model->shader->Program(), "uLight.diffuse");
+		glUniform3f(lightDiffLoc, light.diffuse.x, light.diffuse.y, light.diffuse.z);
+		GLint lightSpecLoc = glGetUniformLocation(model->shader->Program(), "uLight.specular");
+		glUniform3f(lightSpecLoc, light.specular.x, light.specular.y, light.specular.z);*/
+
 		glUniformMatrix4fv(model->shader->GetStandardUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniformMatrix4fv(model->shader->GetStandardUniformLoc(ViewMatrix), 1, GL_FALSE, glm::value_ptr(camera->View()));
 		glUniformMatrix4fv(model->shader->GetStandardUniformLoc(ProjectionMatrix), 1, GL_FALSE, glm::value_ptr(camera->Projection()));
+		GLint viewPosLoc = glGetUniformLocation(model->shader->Program(), "uViewPos");
+		glUniform3f(viewPosLoc, camera->Position().x, camera->Position().y, camera->Position().z);
 
 		renderer->RenderModel(model);
 
@@ -92,7 +107,7 @@ void SceneNode::RenderSceneNode(const Renderer* renderer, const Camera* camera) 
 	}
 	for (SceneNode* childNode : children)
 	{
-		childNode->RenderSceneNode(renderer, camera);
+		childNode->RenderSceneNode(renderer, camera,light);
 	}
 
 }
