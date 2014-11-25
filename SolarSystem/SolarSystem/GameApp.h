@@ -1,24 +1,26 @@
 #pragma once
 #include "Renderer.h"
-#include "SceneGraph.h"
 #include "Model.h"
 #include "Camera.h"
 #include "Input.h"
 #include "Light.h"
+#include "SolarSystem.h"
 
 class GameApp
 {
 private:
 	const float dt = 0.16f;
-	
+	const int windowHeight = 1024;
+	const int windowWidth = 1024;
+
 	//Engine components
 	Renderer* renderer;
-	SceneGraph* sceneGraph;
+	//SceneGraph* sceneGraph;
 
 	//Game Objects
+	SolarSystem* solarSystem;
+
 	Camera* camera;
-	Model* earth;
-	Model* moon;
 	Light light;
 
 	//game values

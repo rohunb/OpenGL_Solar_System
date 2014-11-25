@@ -1,10 +1,12 @@
 newmtl Default_Smoothing
 Ka 0 0 0
 Kd 0.784314 0.784314 0.784314
-Ks 0 0 0
+Ks 1 1 1
 Ni 1
 Ns 400
 Tf 1 1 1
 d 1
-map_Kd earthmap1k.jpg
-
+#map_Kd earthmap1k.jpg
+map_Kd texture_earth_clouds.jpg
+#map_Ks earthspec1k.jpg
+#map_Ks spec1024.jpg

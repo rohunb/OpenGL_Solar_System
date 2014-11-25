@@ -8,12 +8,16 @@
 Model::Model(){}
 
 Model::Model(GLchar* path)
+	:specular(glm::vec3(0.3f)),
+	shininess(8.0f)
 {
 	LoadModel(path);
 }
 
 Model::Model(GLchar* path, Shader* _shader)
-	:shader(_shader)
+	:shader(_shader),
+	specular(glm::vec3(0.3f)),
+	shininess(8.0f)
 {
 	LoadModel(path);
 }
@@ -91,7 +95,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	for (GLuint i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
-		for (GLuint j = 0; j <face.mNumIndices; j++)
+		for (GLuint j = 0; j < face.mNumIndices; j++)
 		{
 			indices.push_back(face.mIndices[j]);
 		}
@@ -109,7 +113,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 		std::vector<Texture> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-		printf("numTextures %i: \n" , textures.size());
+		//printf("numTextures %i: \n" , textures.size());
 
 	}
 	return Mesh(vertices, indices, textures);
@@ -122,6 +126,7 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType 
 		aiString str;
 		mat->GetTexture(type, i, &str);
 		Texture texture;
+
 		texture.id = TextureFromFile(str.C_Str(), directory);
 		texture.type = typeName;
 		texture.path = str;
@@ -138,8 +143,9 @@ GLint Model::TextureFromFile(const char* path, std::string directory)
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	int width, height;
+	//printf("text path %s\n", filename.c_str());
 	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-	
+
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);

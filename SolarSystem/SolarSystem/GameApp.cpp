@@ -2,8 +2,9 @@
 
 GameApp::GameApp()
 {
-	renderer = new Renderer(1024, 1024, 600, 0, "Solar System", GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	sceneGraph = new SceneGraph();
+	renderer = new Renderer(windowHeight, windowWidth, 600, 0, "Solar System", GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	//sceneGraph = new SceneGraph();
+	solarSystem = new SolarSystem();
 
 	glutKeyboardFunc(GameApp::Keyboard);
 	glutKeyboardUpFunc(GameApp::KeyboardUp);
@@ -16,32 +17,29 @@ GameApp::~GameApp()
 	if (renderer)
 	{
 		delete renderer;
-		renderer = NULL;
+		renderer = nullptr;
 	}
-	if (sceneGraph)
+	if (solarSystem)
 	{
-		delete sceneGraph;
-		sceneGraph = NULL;
+		delete solarSystem;
+		solarSystem = nullptr;
 	}
 	if (camera)
 	{
 		delete camera;
-		camera = NULL;
+		camera = nullptr;
 	}
 	
 }
 
 void GameApp::InitializeGameData()
 {
-	cameraMoveSpeed = 1.0f;
+	cameraMoveSpeed = 5.0f;
 }
 void GameApp::SetupScene()
 {
-	camera = new Camera(glm::vec3(0.0f, 0.0f, 15.0f));
-	light.position = glm::vec3(-2.0f,0.0f,2.0f);
-	light.ambient = glm::vec3(0.8f);//white-ish
-	light.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);//white-ish
-	light.specular = glm::vec3(1.0f);
+	camera = new Camera(glm::vec3(15.0f, 0.0f, 205.0f));
+	camera->SetProjection(53.13f, (float)windowWidth / (float)windowHeight, 0.1f, 10000.0f);
 
 	Shader* shader = new Shader("lit_textured_Shader.vert", "lit_textured_Shader.frag");
 	shader->HandleStandardUniforms("uModel", "uView", "uProjection");
@@ -58,24 +56,81 @@ void GameApp::SetupScene()
 	glUniform3f(lightSpecLoc, light.specular.x, light.specular.y, light.specular.z);
 	glUseProgram(0);
 
-	earth = new Model("Art/Earth/sphere.obj", shader);
-	earth->specular = glm::vec3(.3f, 0.3f, 0.3f);
-	earth->shininess = 4.0f;
+	Model* sunModel = new Model("Art/Sun/sphere.obj", shader);
+	solarSystem->sun->SetModel(sunModel);
+	solarSystem->sun->scale = glm::vec3(20.0f);
+	solarSystem->sun->rotationPeriod = 1000.0f;
+	light.position = glm::vec3(solarSystem->sun->position);
+	light.ambient = glm::vec3(0.8f);//white-ish
+	light.diffuse = glm::vec3(0.8f, 0.8f, 0.2f);//yellow-ish
+	light.specular = glm::vec3(1.0f,1.0f,0.0f);
 
-	sceneGraph->root->AddModel(earth);
-	sceneGraph->root->SetTransform(glm::vec3(-2.0f, 0.0, 0.0f), 
-		//glm::rotate(glm::mat4(1.0f), -0.0f, glm::vec3(0.0f, 1.0f, 0.0f)), 
-		glm::mat4(1.0f),
-		glm::vec3(1.0f));
+	Model* mercury = new Model("Art/Mercury/sphere.obj", shader);
+	SolarObject* mercuryObj = new SolarObject(59.0f, 25.79f/0.3f, 488.0f, mercury);
+	mercuryObj->scale = glm::vec3(0.3f);
+	solarSystem->sun->AddSatellite(mercuryObj);
 
-	moon = new Model("Art/Moon/sphere.obj",shader);
-	moon->specular = glm::vec3(.3f, 0.3f, 0.3f);
-	moon->shininess = 4.0f;
-	SceneNode* moonNode = new SceneNode(glm::vec3(4.0f, 0.0f, 0.0f), glm::mat4(1.0f), glm::vec3(.3f));
-	moonNode->AddModel(moon);
-	sceneGraph->root->AddChild(moonNode);
+	Model* venus = new Model("Art/Venus/sphere.obj", shader);
+	SolarObject* venusObj = new SolarObject(243.0f, 30.0f / 0.95f, 324.7f, venus);
+	venusObj->scale = glm::vec3(0.95f);
+	solarSystem->sun->AddSatellite(venusObj);
+	
+
+	Model* earth = new Model("Art/Earth/sphere.obj", shader);
+	SolarObject* earthObj = new SolarObject(1.0f, 35.0f, 965.5f, earth);
+	solarSystem->sun->AddSatellite(earthObj);
+
+	
+	Model* moon = new Model("Art/Moon/sphere.obj", shader);
+	SolarObject* moonObj = new SolarObject(27.3f, 5.0f, 27.3f, moon);
+	moonObj->scale = glm::vec3(0.3f);
+	earthObj->AddSatellite(moonObj);
+
+	Model* mars = new Model("Art/Mars/sphere.obj", shader);
+	SolarObject* marsObj = new SolarObject(1.0f, 42.79f/0.532f, 686.98f, mars);
+	marsObj->scale = glm::vec3(0.532f);
+	solarSystem->sun->AddSatellite(marsObj);
+
+	Model* jupiter = new Model("Art/Jupiter/sphere.obj", shader);
+	SolarObject* jupiterObj = new SolarObject(2.4f, 77.0f / 11.19f, 1.86f*365.0f, jupiter);
+	jupiterObj->scale = glm::vec3(11.19f);
+	/*SolarObject* jupiterObj = new SolarObject(2.4f, 77.0f , 1.86f*365.0f, jupiter);
+	jupiterObj->scale = glm::vec3(1.0f);*/
+	solarSystem->sun->AddSatellite(jupiterObj);
+
+	/*Model* jMoon1 = new Model("Art/Moon/sphere.obj", shader);
+	SolarObject* jMoonObj1 = new SolarObject(10.0f, 30.0f, 50.0f, jMoon1);
+	jupiterObj->AddSatellite(jMoonObj1);*/
+
+	Model* saturn = new Model("Art/Saturn/sphere.obj", shader);
+	SolarObject* saturnObj = new SolarObject(2.3f, 121.0f / 9.26f, 2.941f*365.0f, saturn);
+	saturnObj->scale = glm::vec3(9.26f);
+	solarSystem->sun->AddSatellite(saturnObj);
+
+	Model* uranus = new Model("Art/Uranus/sphere.obj", shader);
+	SolarObject* uranusObj = new SolarObject(24.0f / 17.2f, 225.07f / 4.01f, 8.404f*365.0f, uranus);
+	uranusObj->scale = glm::vec3(4.01f);
+	solarSystem->sun->AddSatellite(uranusObj);
+
+	Model* neptune = new Model("Art/Neptune/sphere.obj", shader);
+	SolarObject* neptuneObj = new SolarObject(24.0f / 16.11f, 341.2f / 3.88f, 16.48f*365.0f, neptune);
+	neptuneObj->scale = glm::vec3(3.88f);
+	solarSystem->sun->AddSatellite(neptuneObj);
+	
 	
 }
+void GameApp::Update()
+{
+	ProcessInput();
+	solarSystem->UpdateSolarSystem(dt);
+}
+
+void GameApp::Display()
+{
+	renderer->PreRender();
+	solarSystem->RenderSolarSystem(renderer, camera);
+}
+
 void GameApp::ProcessInput()
 {
 	glm::vec3 camMoveDir = glm::vec3(0.0f);
@@ -104,17 +159,7 @@ void GameApp::ProcessInput()
 	
 }
 
-void GameApp::Update()
-{
-	ProcessInput();
-	sceneGraph->UpdateSceneGraph(dt);
-}
 
-void GameApp::Display()
-{
-	renderer->PreRender();
-	sceneGraph->RenderSceneGraph(renderer, camera);
-}
 
 void GameApp::Keyboard(unsigned char key, int x, int y)
 {

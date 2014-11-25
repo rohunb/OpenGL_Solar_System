@@ -2,7 +2,8 @@
 
 struct Material {
     sampler2D texture_diffuse1;
-    vec3 specular;
+	sampler2D texture_specular1;
+    //vec3 specular;
     float shininess;
 };
 struct Light {
@@ -23,6 +24,7 @@ uniform Light uLight;
 uniform Material uMaterial;
 
 uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_specular1;
 
 void main()
 {
@@ -41,7 +43,8 @@ void main()
     // Combine results
     vec3 ambientColor = uLight.ambient * vec3(texture(texture_diffuse1, fragTexCoord));
     vec3 diffuseColor = uLight.diffuse * diffuse * vec3(texture(texture_diffuse1, fragTexCoord));
-    vec3 specularColor = uLight.specular * specular * uMaterial.specular;
+    //vec3 specularColor = uLight.specular * specular * uMaterial.specular;
+	vec3 specularColor = uLight.specular * specular * vec3(texture(texture_specular1,fragTexCoord));
     outColour = vec4(ambientColor + diffuseColor + specularColor, 1.0f);
 	//outColour = vec4(0.8f,0.2f,0.3f,1.0f);
 }
