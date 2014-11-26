@@ -9,10 +9,10 @@ LineRenderer::LineRenderer()
 	Init();
 }
 
-LineRenderer::LineRenderer(Shader* _shader)
-	:numVertices(0),
-	shader(_shader)
+LineRenderer::LineRenderer(Shader* _shader, int _numVertices)
+	:shader(_shader)
 {
+	NumVertices(_numVertices);
 	Init();
 }
 
@@ -70,6 +70,8 @@ void LineRenderer::Init()
 	viewLoc = shader->GetStandardUniformLoc(ViewMatrix);
 	projLoc = shader->GetStandardUniformLoc(ProjectionMatrix);
 
+	//ReGenArrays();
+
 	if (NumVertices() < 1)
 	{
 		return;
@@ -79,7 +81,7 @@ void LineRenderer::Init()
 
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, NumVertices()*3*sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, NumVertices()*sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
@@ -87,7 +89,7 @@ void LineRenderer::Init()
 	glBindVertexArray(0);
 }
 
-void LineRenderer::Render(const glm::mat4& view, const glm::mat4& projection)
+void LineRenderer::Render(const Camera* camera)
 {
 	if (NumVertices() < 1)
 	{
@@ -97,13 +99,15 @@ void LineRenderer::Render(const glm::mat4& view, const glm::mat4& projection)
 	{
 		std::cerr << "Shader not loaded";
 	}
-	/*
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));*/
+	shader->Use();
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera->View()));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(camera->Projection()));
 	glUniform3fv(colourLoc, 1, colour);
 
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_LINE_STRIP, 0, numVertices);
+	glDrawArrays(GL_LINES, 0, numVertices);
 	glBindVertexArray(0);
+
+	glUseProgram(0);
 }
 

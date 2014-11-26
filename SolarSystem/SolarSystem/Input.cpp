@@ -25,11 +25,9 @@ Input& Input::GetInstance()
 }
 void Input::KeyPressed(unsigned char key, int x, int y)
 {
-	
 	keyStates[key] = true;
 }
 void Input::KeyUp(unsigned char key, int x, int y)
 {
-	
 	keyStates[key] = false;
 }

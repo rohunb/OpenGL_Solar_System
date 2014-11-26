@@ -13,38 +13,41 @@ private:
 	const float dt = 0.16f;
 	const int windowHeight = 1024;
 	const int windowWidth = 1024;
-	bool paused;
 
 	//Engine components
 	Renderer* renderer;
-	//SceneGraph* sceneGraph;
 
 	//Game Objects
 	SolarSystem* solarSystem;
-
 	Camera* camera;
 	Light light;
-	std::vector<LineRenderer> orbitLines;
+	int numOrbitVertices;
+	LineRenderer* orbitLineRenderer;
 
 	//game values
 	float cameraMoveSpeed;
+	bool paused;
+	float currentTime;
+	float keyPressInterval;
 
 public:
 	GameApp();
 	~GameApp();
-	
+
 	void Update();
 	void Display();
 
 private:
+	std::vector<glm::vec3> orbitLineVertices;
 
 	void InitializeGameData();
 	void SetupScene();
 	void ProcessInput();
 	static void Keyboard(unsigned char key, int x, int y);
 	static void KeyboardUp(unsigned char key, int x, int y);
-	
 
+	//helper methods
+	void AddOrbitVertices(float radius);
 	
 };
 

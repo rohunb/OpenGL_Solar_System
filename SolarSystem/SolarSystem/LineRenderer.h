@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Shader.h"
+#include "Camera.h"
 
 typedef unsigned int uint;
 
@@ -11,14 +12,14 @@ class LineRenderer
 {
 public:
 	LineRenderer();
-	LineRenderer(Shader* shader);
+	LineRenderer(Shader* shader, int numVertices);
 	LineRenderer(const std::vector<glm::vec3>& vertices);
 	LineRenderer(Shader* shader, const std::vector<glm::vec3>& vertices);
 
 	~LineRenderer();
 
 	void Init();
-	void Render(const glm::mat4& view, const glm::mat4& projection);
+	void Render(const Camera* camera);
 	void ReGenArrays();
 	inline void SetColour(const glm::vec3& colour)
 	{
