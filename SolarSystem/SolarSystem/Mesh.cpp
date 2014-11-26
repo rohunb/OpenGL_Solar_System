@@ -29,12 +29,12 @@ void Mesh::Init()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(VertexAttrib, sizeof(GL_FLOAT), GL_FLOAT, GL_FALSE, VERTEX_SIZE, (GLvoid*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(NormalAttrib, sizeof(GL_FLOAT), GL_FLOAT, GL_FALSE, VERTEX_SIZE, (GLvoid*)offsetof(Vertex, normal));
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(TexCoordAttrib, sizeof(GL_FLOAT), GL_FLOAT, GL_FALSE, VERTEX_SIZE, (GLvoid*)offsetof(Vertex, texCoord));
+	glEnableVertexAttribArray(VertexAttrib);
+	glVertexAttribPointer(VertexAttrib, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (GLvoid*)0);
+	glEnableVertexAttribArray(NormalAttrib);
+	glVertexAttribPointer(NormalAttrib, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (GLvoid*)offsetof(Vertex, normal));
+	glEnableVertexAttribArray(TexCoordAttrib);
+	glVertexAttribPointer(TexCoordAttrib, 2 , GL_FLOAT, GL_FALSE, VERTEX_SIZE, (GLvoid*)offsetof(Vertex, texCoord));
 	glBindVertexArray(0);
 
 #undef VERTEX_SIZE

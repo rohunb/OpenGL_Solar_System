@@ -123,8 +123,7 @@ void GameApp::SetupScene()
 	SolarObject* neptuneObj = new SolarObject(24.0f / 16.11f, 341.2f / 3.88f, 16.48f*365.0f, neptune);
 	neptuneObj->scale = glm::vec3(3.88f);
 	solarSystem->sun->AddSatellite(neptuneObj);
-	
-	
+		
 }
 void GameApp::Update()
 {
