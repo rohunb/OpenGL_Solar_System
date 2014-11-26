@@ -107,14 +107,14 @@ void SolarObject::SetModel(Model* model)
 void SolarObject::RenderSolarObject(const Renderer* renderer, const Camera* camera) const
 {
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	modelMatrix = glm::scale(modelMatrix, scale);
-	modelMatrix = glm::translate(modelMatrix, position);
-	modelMatrix = modelMatrix*rotation;
-
 	if (parent)
 	{
 		modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
 	}
+	modelMatrix = glm::scale(modelMatrix, scale);
+	modelMatrix = glm::translate(modelMatrix, position);
+	modelMatrix = modelMatrix*rotation;
+	
 
 	/*glm::mat4 modelMatrix = glm::mat4(1.0f);
 	glm::vec3 newPos = position;

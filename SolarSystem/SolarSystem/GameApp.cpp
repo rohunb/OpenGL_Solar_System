@@ -108,8 +108,8 @@ void GameApp::SetupScene()
 	solarSystem->sun->AddSatellite(jupiterObj);
 	AddOrbitVertices(77.0f);
 
-	/*Model* jMoon1 = new Model("Art/Moon/sphere.obj", shader);
-	SolarObject* jMoonObj1 = new SolarObject(10.0f, 30.0f, 50.0f, jMoon1);
+	/*Model* jMoon1 = new Model("Art/Moon/sphere.obj", planetShader);
+	SolarObject* jMoonObj1 = new SolarObject(10.0f, 20.0f, 50.0f, jMoon1);
 	jupiterObj->AddSatellite(jMoonObj1);*/
 
 	Model* saturn = new Model("Art/Saturn/sphere.obj", planetShader);
