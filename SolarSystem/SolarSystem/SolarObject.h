@@ -22,7 +22,7 @@ public:
 	float rotationPeriod;
 	float orbitRadius;
 	float orbitPeriod;
-	
+	//glm::mat4 modelMatrix;
 
 	SolarObject();
 	SolarObject(const glm::vec3& position, const glm::mat4& rotation, const glm::vec3& scale, Model* model=nullptr);

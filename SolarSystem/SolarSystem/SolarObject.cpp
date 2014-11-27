@@ -60,13 +60,38 @@ void SolarObject::UpdateSolarObject(float dt)
 	float orbitCircum = 2.0f*glm::pi<float>() * orbitRadius;
 	angle += dt*orbitCircum / orbitPeriod * 10.0f;
 
-	position.x = orbitRadius*glm::cos(glm::radians(angle));
-	position.z = orbitRadius*glm::sin(glm::radians(angle));
-
+	/*if (parent)
+	{
+		position.x = parent->position.x + orbitRadius*glm::cos(glm::radians(angle));
+		position.z = parent->position.z + orbitRadius*glm::sin(glm::radians(angle));
+	}*/
 	for (SolarObject* satellite : satellites)
 	{
 		satellite->UpdateSolarObject(dt);
 	}
+
+	//modelMatrix = glm::mat4(1.0f);
+	///*if (parent)
+	//{
+	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
+	//}
+	//modelMatrix = glm::scale(modelMatrix, scale);
+	//modelMatrix = glm::translate(modelMatrix, position);
+	//modelMatrix = modelMatrix*rotation;*/
+	//modelMatrix = glm::scale(modelMatrix, scale);
+	//modelMatrix = rotation*modelMatrix;
+	//if (parent)
+	//{
+	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
+	//	
+	//}
+	////modelMatrix = glm::scale(modelMatrix, scale);
+	//
+	//modelMatrix = glm::translate(modelMatrix, position);
+	//if (parent)
+	//{
+	//	position = position + parent->position;
+	//}
 }
 
 SolarObject::~SolarObject()
@@ -107,13 +132,40 @@ void SolarObject::SetModel(Model* model)
 void SolarObject::RenderSolarObject(const Renderer* renderer, const Camera* camera) const
 {
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	if (parent)
-	{
-		modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
-	}
 	modelMatrix = glm::scale(modelMatrix, scale);
-	modelMatrix = glm::translate(modelMatrix, position);
-	modelMatrix = modelMatrix*rotation;
+	//modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+	modelMatrix = rotation*modelMatrix;
+	/*if (parent)
+	{
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(parent->orbitRadius, 0.0f, 0.0f));
+	}*/
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(orbitRadius, 0.0f, 0.0f));
+
+	/*else
+	{
+		modelMatrix = glm::translate(modelMatrix, position);
+	}*/
+	modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	//glm::mat4 modelMatrix = glm::mat4(1.0f);
+	///*if (parent)
+	//{
+	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
+	//}
+	//modelMatrix = glm::scale(modelMatrix, scale);
+	//modelMatrix = glm::translate(modelMatrix, position);
+	//modelMatrix = modelMatrix*rotation;*/
+	//modelMatrix = glm::scale(modelMatrix, scale);
+	//
+	//if (parent)
+	//{
+	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
+	//	position = position + parent->position;
+	//}
+	////modelMatrix = glm::scale(modelMatrix, scale);
+	//modelMatrix = rotation*modelMatrix;
+	//modelMatrix = glm::translate(modelMatrix, position);
+
 	
 
 	/*glm::mat4 modelMatrix = glm::mat4(1.0f);

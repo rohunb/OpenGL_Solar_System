@@ -72,7 +72,7 @@ void GameApp::SetupScene()
 	light.diffuse = glm::vec3(0.8f, 0.8f, 0.2f);//yellow-ish
 	light.specular = glm::vec3(1.0f, 1.0f, 0.0f);
 
-	Model* mercury = new Model("Art/Mercury/sphere.obj", planetShader);
+	/*Model* mercury = new Model("Art/Mercury/sphere.obj", planetShader);
 	SolarObject* mercuryObj = new SolarObject(59.0f, 25.79f / 0.3f, 488.0f, mercury);
 	mercuryObj->scale = glm::vec3(0.3f);
 	solarSystem->sun->AddSatellite(mercuryObj);
@@ -82,7 +82,7 @@ void GameApp::SetupScene()
 	SolarObject* venusObj = new SolarObject(70.0f, 30.0f / 0.95f, 324.7f, venus);
 	venusObj->scale = glm::vec3(0.95f);
 	solarSystem->sun->AddSatellite(venusObj);
-	AddOrbitVertices(30.0f);
+	AddOrbitVertices(30.0f);*/
 
 	Model* earth = new Model("Art/Earth/sphere.obj", planetShader);
 	SolarObject* earthObj = new SolarObject(1.0f, 35.0f, 965.5f, earth);
@@ -94,25 +94,25 @@ void GameApp::SetupScene()
 	moonObj->scale = glm::vec3(0.3f);
 	earthObj->AddSatellite(moonObj);
 
-	Model* mars = new Model("Art/Mars/sphere.obj", planetShader);
+	/*Model* mars = new Model("Art/Mars/sphere.obj", planetShader);
 	SolarObject* marsObj = new SolarObject(1.0f, 42.79f / 0.532f, 686.98f, mars);
 	marsObj->scale = glm::vec3(0.532f);
 	solarSystem->sun->AddSatellite(marsObj);
-	AddOrbitVertices(42.79f);
+	AddOrbitVertices(42.79f);*/
 
-	Model* jupiter = new Model("Art/Jupiter/sphere.obj", planetShader);
-	SolarObject* jupiterObj = new SolarObject(2.4f, 77.0f / 11.19f, 1.86f*365.0f, jupiter);
-	jupiterObj->scale = glm::vec3(11.19f);
-	/*SolarObject* jupiterObj = new SolarObject(2.4f, 77.0f , 1.86f*365.0f, jupiter);
-	jupiterObj->scale = glm::vec3(1.0f);*/
-	solarSystem->sun->AddSatellite(jupiterObj);
-	AddOrbitVertices(77.0f);
+	//Model* jupiter = new Model("Art/Jupiter/sphere.obj", planetShader);
+	//SolarObject* jupiterObj = new SolarObject(2.4f, 77.0f / 11.19f, 1.86f*365.0f, jupiter);
+	//jupiterObj->scale = glm::vec3(11.19f);
+	///*SolarObject* jupiterObj = new SolarObject(2.4f, 77.0f , 1.86f*365.0f, jupiter);
+	//jupiterObj->scale = glm::vec3(1.0f);*/
+	//solarSystem->sun->AddSatellite(jupiterObj);
+	//AddOrbitVertices(77.0f);
 
-	/*Model* jMoon1 = new Model("Art/Moon/sphere.obj", planetShader);
-	SolarObject* jMoonObj1 = new SolarObject(10.0f, 20.0f, 50.0f, jMoon1);
-	jupiterObj->AddSatellite(jMoonObj1);*/
+	//Model* jMoon1 = new Model("Art/Moon/sphere.obj", planetShader);
+	//SolarObject* jMoonObj1 = new SolarObject(10.0f, 20.0f, 50.0f, jMoon1);
+	//jupiterObj->AddSatellite(jMoonObj1);
 
-	Model* saturn = new Model("Art/Saturn/sphere.obj", planetShader);
+	/*Model* saturn = new Model("Art/Saturn/sphere.obj", planetShader);
 	SolarObject* saturnObj = new SolarObject(2.3f, 121.0f / 9.26f, 2.941f*365.0f, saturn);
 	saturnObj->scale = glm::vec3(9.26f);
 	solarSystem->sun->AddSatellite(saturnObj);
@@ -128,7 +128,7 @@ void GameApp::SetupScene()
 	SolarObject* neptuneObj = new SolarObject(24.0f / 16.11f, 341.2f / 3.88f, 16.48f*365.0f, neptune);
 	neptuneObj->scale = glm::vec3(3.88f);
 	solarSystem->sun->AddSatellite(neptuneObj);
-	AddOrbitVertices(341.2f);
+	AddOrbitVertices(341.2f);*/
 
 	orbitLineRenderer = new LineRenderer(lineShader, orbitLineVertices);
 	orbitLineRenderer->SetColour(glm::vec3(0.4f));
