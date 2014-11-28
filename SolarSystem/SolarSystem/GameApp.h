@@ -11,8 +11,8 @@ class GameApp
 {
 private:
 	const float dt = 0.16f;
-	const int windowHeight = 1024;
-	const int windowWidth = 1024;
+	const int windowHeight = 900;
+	const int windowWidth = 900;
 
 	//Engine components
 	Renderer* renderer;

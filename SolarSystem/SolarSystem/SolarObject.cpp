@@ -154,7 +154,9 @@ void SolarObject::SetTransform(const glm::vec3& position, const glm::mat4& rotat
 
 glm::mat4 SolarObject::Transform() const
 {
-	glm::mat4 transform;
-	transform = glm::translate(glm::mat4(1.0f), position)*rotation*glm::scale(glm::mat4(1.0f), scale) * transform;
-	return transform;
+	return glm::translate(glm::mat4(1.0f), position)
+		* rotation
+		* glm::scale(glm::mat4(1.0f), scale);
+	//transform =  * transform;
+	//return transform;
 }

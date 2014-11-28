@@ -2,7 +2,7 @@
 
 GameApp::GameApp()
 {
-	renderer = new Renderer(windowHeight, windowWidth, 600, 0, "Solar System", GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	renderer = new Renderer(windowHeight, windowWidth, 400, 0, "Solar System", GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	solarSystem = new SolarSystem();
 
 	glutKeyboardFunc(GameApp::Keyboard);
