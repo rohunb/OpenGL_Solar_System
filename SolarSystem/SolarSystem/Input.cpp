@@ -1,5 +1,6 @@
 #include "Input.h"
 #include <stdio.h>
+
 Input* Input::instance = NULL;
 
 Input::Input()

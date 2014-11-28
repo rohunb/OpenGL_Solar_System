@@ -28,7 +28,6 @@ uniform sampler2D texture_specular1;
 
 void main()
 {
-    //color = texture(myTexture, TexCoord);
 	vec3 norm = normalize(fragNormal);
     vec3 lightDir = normalize(uLight.position - fragPosition);
     vec3 viewDir = normalize(uViewPos - fragPosition);
@@ -46,5 +45,4 @@ void main()
     //vec3 specularColor = uLight.specular * specular * uMaterial.specular;
 	vec3 specularColor = uLight.specular * specular * vec3(texture(texture_specular1,fragTexCoord));
     outColour = vec4(ambientColor + diffuseColor + specularColor, 1.0f);
-	//outColour = vec4(0.8f,0.2f,0.3f,1.0f);
 }

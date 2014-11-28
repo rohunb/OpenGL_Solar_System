@@ -13,9 +13,6 @@ public:
 	void PreRender() const;
 	void RenderModel(const Model* model) const;
 
-private:
-
-
 
 };
 

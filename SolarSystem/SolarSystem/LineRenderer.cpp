@@ -70,8 +70,6 @@ void LineRenderer::Init()
 	viewLoc = shader->GetStandardUniformLoc(ViewMatrix);
 	projLoc = shader->GetStandardUniformLoc(ProjectionMatrix);
 
-	//ReGenArrays();
-
 	if (NumVertices() < 1)
 	{
 		return;

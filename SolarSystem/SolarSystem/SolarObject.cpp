@@ -51,76 +51,6 @@ SolarObject::SolarObject(float _rotationPeriod, float _orbitRadius, float _orbit
 }
 void SolarObject::RenderSolarObject(const Renderer* renderer, const Camera* camera) const
 {
-	glm::mat4 rotMat, transMat, scaleMat;
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	//scaleMat = glm::scale(glm::mat4(1.0f), scale);
-	//modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-	//modelMatrix = rotation*modelMatrix;
-	/*if (parent)
-	{
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(parent->orbitRadius, 0.0f, 0.0f));
-	}*/
-	//modelMatrix = glm::translate(modelMatrix, glm::vec3(orbitRadius, 0.0f, 0.0f));
-
-	/*else
-	{
-	modelMatrix = glm::translate(modelMatrix, position);
-	}*/
-	//modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-	//modelMatrix = glm::translate(modelMatrix, position);
-	/*if (parent)
-	{
-		modelMatrix = parent->Transform()*Transform();
-	}
-	else*/
-	{
-		modelMatrix = Transform();
-	}
-
-	//if (parent)
-	//{
-	//	modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(parent->orbitRadius, 0.0f, 0.0f))*modelMatrix;
-	//	modelMatrix = glm::rotate(glm::mat4(1.0f), parent->angle, glm::vec3(0.0f, 1.0f, 0.0f))*modelMatrix;
-
-	//	//modelMatrix = glm::translate(modelMatrix, parent->position + position);
-	//}
-	//modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(orbitRadius, 0.0f, 0.0f))*modelMatrix;
-	//modelMatrix = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 1.0f, 0.0f))*modelMatrix;
-
-	//modelMatrix = rotMat*transMat*scaleMat;
-
-	//glm::mat4 modelMatrix = glm::mat4(1.0f);
-	///*if (parent)
-	//{
-	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
-	//}
-	//modelMatrix = glm::scale(modelMatrix, scale);
-	//modelMatrix = glm::translate(modelMatrix, position);
-	//modelMatrix = modelMatrix*rotation;*/
-	//modelMatrix = glm::scale(modelMatrix, scale);
-	//
-	//if (parent)
-	//{
-	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
-	//	position = position + parent->position;
-	//}
-	////modelMatrix = glm::scale(modelMatrix, scale);
-	//modelMatrix = rotation*modelMatrix;
-	//modelMatrix = glm::translate(modelMatrix, position);
-
-
-
-	/*glm::mat4 modelMatrix = glm::mat4(1.0f);
-	glm::vec3 newPos = position;
-	if (parent)
-	{
-	newPos += parent->position;
-	}
-	modelMatrix = glm::scale(modelMatrix, scale);
-
-	modelMatrix = glm::translate(modelMatrix, newPos);
-	modelMatrix = modelMatrix*rotation;*/
-
 	if (model)
 	{
 		model->shader->Use();
@@ -131,7 +61,7 @@ void SolarObject::RenderSolarObject(const Renderer* renderer, const Camera* came
 		GLint viewPosLoc = glGetUniformLocation(model->shader->Program(), "uViewPos");
 		glUniform3f(viewPosLoc, camera->Position().x, camera->Position().y, camera->Position().z);
 
-		glUniformMatrix4fv(model->shader->GetStandardUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		glUniformMatrix4fv(model->shader->GetStandardUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(Transform()));
 		glUniformMatrix4fv(model->shader->GetStandardUniformLoc(ViewMatrix), 1, GL_FALSE, glm::value_ptr(camera->View()));
 		glUniformMatrix4fv(model->shader->GetStandardUniformLoc(ProjectionMatrix), 1, GL_FALSE, glm::value_ptr(camera->Projection()));
 
@@ -158,7 +88,6 @@ void SolarObject::UpdateSolarObject(float dt)
 	{
 		angle = 0.0f;
 	}
-	printf("angle: %f\n", angle);
 
 	if (parent)
 	{
@@ -172,38 +101,11 @@ void SolarObject::UpdateSolarObject(float dt)
 		position.z = orbitRadius*glm::sin(glm::radians(angle));
 	}
 
-	/*if (parent)
-	{
-		position.x = parent->position.x + orbitRadius*glm::cos(glm::radians(angle));
-		position.z = parent->position.z + orbitRadius*glm::sin(glm::radians(angle));
-	}*/
 	for (SolarObject* satellite : satellites)
 	{
 		satellite->UpdateSolarObject(dt);
 	}
-
-	//modelMatrix = glm::mat4(1.0f);
-	///*if (parent)
-	//{
-	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
-	//}
-	//modelMatrix = glm::scale(modelMatrix, scale);
-	//modelMatrix = glm::translate(modelMatrix, position);
-	//modelMatrix = modelMatrix*rotation;*/
-	//modelMatrix = glm::scale(modelMatrix, scale);
-	//modelMatrix = rotation*modelMatrix;
-	//if (parent)
-	//{
-	//	modelMatrix = glm::translate(glm::mat4(1.0f), parent->position)*modelMatrix;
-	//	
-	//}
-	////modelMatrix = glm::scale(modelMatrix, scale);
-	//
-	//modelMatrix = glm::translate(modelMatrix, position);
-	//if (parent)
-	//{
-	//	position = position + parent->position;
-	//}
+	
 }
 
 SolarObject::~SolarObject()
@@ -254,7 +156,5 @@ glm::mat4 SolarObject::Transform() const
 {
 	glm::mat4 transform;
 	transform = glm::translate(glm::mat4(1.0f), position)*rotation*glm::scale(glm::mat4(1.0f), scale) * transform;
-	/*transform =  * transform;
-	transform =  * transform;*/
 	return transform;
 }

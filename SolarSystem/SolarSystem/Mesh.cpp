@@ -58,7 +58,6 @@ void Mesh::Render(GLint shaderProgram) const
 			ss << specularNr++;
 		}
 		number = ss.str();
-		//printf("text: %s\n", ("uMaterial." + name + number).c_str());
 		glUniform1i(glGetUniformLocation(shaderProgram, (name + number).c_str()), i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
