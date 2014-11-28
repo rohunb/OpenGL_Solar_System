@@ -31,6 +31,7 @@ public:
 	~SolarObject();
 
 	void SetTransform(const glm::vec3& position, const glm::mat4& rotation, const glm::vec3& scale);
+	glm::mat4 Transform() const;
 	void AddSatellite(SolarObject* solarObject);
 	void RemoveSatellite(SolarObject* solarObject);
 	void SetModel(Model* model);
