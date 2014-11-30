@@ -34,6 +34,7 @@ GameApp::~GameApp()
 void GameApp::InitializeGameData()
 {
 	cameraMoveSpeed = 5.0f;
+	cameraTurnSpeed = 1.0f;
 	paused = false;
 	currentTime = 0.0f;
 	keyPressInterval = 1.0f;
@@ -68,7 +69,7 @@ void GameApp::SetupScene()
 	solarSystem->sun->scale = glm::vec3(20.0f);
 	solarSystem->sun->rotationPeriod = 1000.0f;
 	light.position = glm::vec3(solarSystem->sun->position);
-	light.ambient = glm::vec3(0.8f);//white-ish
+	light.ambient = glm::vec3(0.1f);//white-ish
 	light.diffuse = glm::vec3(0.8f, 0.8f, 0.2f);//yellow-ish
 	light.specular = glm::vec3(1.0f, 1.0f, 0.0f);
 
@@ -230,7 +231,16 @@ void GameApp::ProcessInput()
 		camMoveDir.x += cameraMoveSpeed*dt;
 	}
 	camera->MoveCamera(camMoveDir);
-
+	if (Input::GetInstance().keyStates['z']
+		|| Input::GetInstance().keyStates['Z'])
+	{
+		camera->RotateCamera(cameraTurnSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+	else if (Input::GetInstance().keyStates['x']
+		|| Input::GetInstance().keyStates['X'])
+	{
+		camera->RotateCamera(-cameraTurnSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	}
 
 }
 

@@ -26,6 +26,7 @@ private:
 
 	//game values
 	float cameraMoveSpeed;
+	float cameraTurnSpeed;
 	bool paused;
 	float currentTime;
 	float keyPressInterval;

@@ -1,6 +1,8 @@
 #pragma once
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
+#include "glm\gtx\rotate_vector.hpp"
+#include "glm\gtx\norm.hpp"
 #include <stdio.h>
 
 class Camera
@@ -78,9 +80,21 @@ public:
 	{
 		projectionMatrix = glm::perspective(fovY, aspectRatio, nearClipDistance, farClipDistance);
 	}
-	inline void MoveCamera(const glm::vec3& direction)
+	inline void MoveCamera(glm::vec3& direction)
 	{
-		position += direction;
+		float dirMag = glm::length(direction);
+		if (dirMag < 0.01f)
+		{
+			return;
+		}
+		direction /= dirMag;
+		float angle = glm::acos(glm::dot(direction, glm::vec3(0.0f, 0.0f, -1.0f)));
+		if (direction.x > 0.0f)
+		{
+			angle *= -1.0f;
+		}
+		glm::vec3 moveDir = glm::rotateY(forward, glm::degrees(angle));
+		position += moveDir * dirMag;
 	}
 	inline void RotateCamera(float angle, const glm::vec3& axis)
 	{
