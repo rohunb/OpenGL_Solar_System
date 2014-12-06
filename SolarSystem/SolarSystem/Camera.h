@@ -70,7 +70,7 @@ public:
 	}
 	inline glm::mat4 View() const
 	{
-		return glm::lookAt(position, position + forward, worldUp);
+		return glm::lookAt(position, position + forward, up);
 	}
 	inline glm::mat4 Projection() const
 	{
@@ -108,7 +108,7 @@ private:
 	{
 		forward = glm::vec3(orientation * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));
 		right = glm::normalize(glm::cross(forward, worldUp));
-		up = glm::normalize(glm::cross(forward, right));
+		up = glm::normalize(glm::cross(right,forward));
 	}
 
 
