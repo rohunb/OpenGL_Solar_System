@@ -2,7 +2,7 @@
 
 GameApp::GameApp()
 {
-	renderer = new Renderer(windowHeight, windowWidth, 400, 0, "Solar System", GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	renderer = new Renderer(windowWidth,windowHeight, 0, 0, "Solar System", GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	solarSystem = new SolarSystem();
 
 	glutKeyboardFunc(GameApp::Keyboard);
@@ -230,16 +230,37 @@ void GameApp::ProcessInput()
 	{
 		camMoveDir.x += cameraMoveSpeed*dt;
 	}
+	if (Input::GetInstance().keyStates['r']
+		|| Input::GetInstance().keyStates['R'])
+	{
+		camMoveDir.y += cameraMoveSpeed*dt;
+	}
+	if (Input::GetInstance().keyStates['f']
+		|| Input::GetInstance().keyStates['F'])
+	{
+		camMoveDir.y -= cameraMoveSpeed*dt;
+	}
 	camera->MoveCamera(camMoveDir);
-	if (Input::GetInstance().keyStates['z']
-		|| Input::GetInstance().keyStates['Z'])
+
+	if (Input::GetInstance().keyStates['j']
+		|| Input::GetInstance().keyStates['J'])
 	{
 		camera->RotateCamera(cameraTurnSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
-	else if (Input::GetInstance().keyStates['x']
-		|| Input::GetInstance().keyStates['X'])
+	else if (Input::GetInstance().keyStates['l']
+		|| Input::GetInstance().keyStates['L'])
 	{
 		camera->RotateCamera(-cameraTurnSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+	if (Input::GetInstance().keyStates['i']
+		|| Input::GetInstance().keyStates['I'])
+	{
+		camera->RotateCamera(cameraTurnSpeed, glm::vec3(1.0f, 0.0f, 0.0f));
+	}
+	else if (Input::GetInstance().keyStates['k']
+		|| Input::GetInstance().keyStates['K'])
+	{
+		camera->RotateCamera(-cameraTurnSpeed, glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 
 }

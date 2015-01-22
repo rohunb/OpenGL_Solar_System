@@ -1,10 +1,10 @@
 #include "Renderer.h"
 #include "GL/glut.h"
 
-Renderer::Renderer(int height, int width, int posX, int posY, char* windowName, uint displayMode)
+Renderer::Renderer(int width, int height, int posX, int posY, char* windowName, uint displayMode)
 {
 	glutInitDisplayMode(displayMode);
-	glutInitWindowSize(height, width);
+	glutInitWindowSize(width, height);
 	glutInitWindowPosition(posX, posY);
 	glutCreateWindow(windowName);
 	
